@@ -3,19 +3,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by gubar on 10.05.2017.
+ * Наследования класса SimpleConditioner
  */
 public class AdvanceConditioner extends SimpleConditioner {
     private String mode;
     private List<String> modes;
 
-    public AdvanceConditioner(){
+    public AdvanceConditioner() {
         super();
         mode = "Normal";
         modes = new ArrayList<>();
         modes.add("Normal");
         modes.add("Night mode");
         modes.add("Eco mode");
+        setStep(0.1);
     }
 
     @Override
@@ -25,13 +26,16 @@ public class AdvanceConditioner extends SimpleConditioner {
     }
 
     public void setMode(int mode) {
-        if(isOn())
-        this.mode = modes.get(mode);
+        if (isOn())
+            this.mode = modes.get(mode);
     }
 
+    /*
+     *Полиморфизм метода toString
+     */
     @Override
     public String toString() {
-        BigDecimal temp = new BigDecimal(getTemperature()).setScale(1, BigDecimal.ROUND_HALF_DOWN);
-        return "AdvanceConditioner: Temperature = "+temp.toString() + ", Mode = "+mode;
+        String simple = super.toString();
+        return "AdvanceConditioner: "+simple + ", Mode = " + mode;
     }
 }

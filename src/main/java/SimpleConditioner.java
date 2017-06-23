@@ -1,16 +1,20 @@
 import java.math.BigDecimal;
-import java.math.MathContext;
 
 /**
- * Created by gubar on 10.05.2017.
+ * Реализация интерфейса Conditioner
  */
 public class SimpleConditioner implements Conditioner{
     private double temperature;
     private boolean isOn;
+    private double step;
+
+    private static final double MIN_TEMP = 15.0;
+    private static final double MAX_TEMP = 28.0;
 
     public SimpleConditioner(){
         temperature = 20;
         isOn = false;
+        setStep(0.5);
     }
 
     @Override
@@ -24,29 +28,35 @@ public class SimpleConditioner implements Conditioner{
         temperature = 20;
     }
 
+    /*
+     *Инкапсуляция параметра temperature
+     */
     @Override
     public void plus() {
-        if (isOn)
-        temperature+=0.1;
+        if (isOn && temperature < MAX_TEMP)
+        temperature+=step;
     }
 
     @Override
     public void minus() {
-        if(isOn)
-        temperature-=0.1;
-    }
-
-    public double getTemperature() {
-        return temperature;
+        if(isOn && temperature > MIN_TEMP)
+        temperature-=step;
     }
 
     public boolean isOn() {
         return isOn;
     }
 
+    public void setStep(double step) {
+        this.step = step;
+    }
+
+    /*
+     *Полиморфизм метода toString
+     */
     @Override
     public String toString() {
         BigDecimal temp = new BigDecimal(temperature).setScale(1, BigDecimal.ROUND_HALF_DOWN);
-        return "SimpleConditioner: Temperature = "+temp.toString();
+        return "SimpleConditioner: isOn: "+ isOn+" Temperature = "+temp.toString();
     }
 }

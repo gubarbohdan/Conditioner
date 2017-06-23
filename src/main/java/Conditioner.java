@@ -1,5 +1,5 @@
 /**
- * Created by gubar on 10.05.2017.
+ * Created by gubar
  */
 public interface Conditioner {
     void on();
